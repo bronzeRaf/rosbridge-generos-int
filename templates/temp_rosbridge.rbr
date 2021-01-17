@@ -1,0 +1,45 @@
+{# 
+#This is a jinja2 template of a RosBridge Model
+#
+# Written in 16/1/2021
+# Written by Rafael Brouzos
+#}
+
+// ROS2Connections
+{% for r in ros2_connections %}
+ROS2Connection {{r.name}} -> { }
+{%endfor%}
+
+
+// TopicBridges
+{% for t in topic_bridges %}
+TopicBridge {{t.name}}  -> {
+	msgType: "{{t.msgType}}";
+	rosConn: {{t.rosConn}};
+	rosURI: "{{t.rosURI}}";
+	brokerConn: {{t.brokerConn}};
+	brokerURI: "{{t.brokerURI}}";
+	direction: {{t.direction}};
+}
+{%endfor%}
+
+// ServiceBridges
+{% for s in service_bridges %}
+ServiceBridge {{s.name}}  -> {
+	msgType: "{{s.msgType}}";
+	rosConn: {{s.rosConn}};
+	rosURI: "{{s.rosURI}}";
+	brokerConn: {{s.brokerConn}};
+	brokerURI: "{{s.brokerURI}}";
+	direction: {{s.direction}};
+}
+{%endfor%}
+
+// AMQPConnection
+	// TODO
+	
+// RedisConnection
+	// TODO
+	
+// MQTTConnection
+	// TODO
