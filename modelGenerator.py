@@ -11,15 +11,23 @@
 #
 # Therefore, you can use it in RosBridge as described in the tool's
 # official documentation
+#
+# Inputs
+# 1. generos path
+# 2. xmi model
+# 3. destination
+# 4. rbr info (not set yet)
 
+'''
 from pyecoregen.ecore import EcoreGenerator 
 from weasyprint import HTML
 import subprocess
-import sys
 import networkx as nx
 import matplotlib.pyplot as plt 
+'''
 
 import os
+import sys
 from pyecore.resources import ResourceSet, URI, global_registry
 from pyecore.resources.json import JsonResource
 from pyecore.ecore import EClass, EAttribute
@@ -35,13 +43,19 @@ sys.path.append(os.path.join(os.path.dirname(__file__),'metamodelLib'))
 # Obtain App Install directory
 install_dir = str(os.path.dirname(__file__))
 
+# Count arguments
+if len(sys.argv) != 4:
+    print ('Please give 3 arguments: 1. Path to Generos Installation 2. XMI Generos model 3. Destination of the output Rosbridge model')
+    sys.exit(0)
+
 # Obtain arguments
 generos_dir = os.path.relpath(sys.argv[1], install_dir)
-# ~ destination = os.path.relpath(sys.argv[2], install_dir)
-# ~ broker_info = os.path.relpath(sys.argv[3], install_dir)
-metamodel_filename = os.path.join(sys.argv[1], 'metamodelLib/metageneros.ecore')
-print(metamodel_filename)
-model_filename = os.path.join(sys.argv[1], 'models/generos.xmi')
+model_filename = os.path.relpath(sys.argv[2], install_dir)
+destination = os.path.relpath(sys.argv[3], install_dir)
+# ~ broker_info = os.path.relpath(sys.argv[4], install_dir)
+
+# Obtain metamodel from Generos
+metamodel_filename = os.path.join(generos_dir, 'metamodelLib/metageneros.ecore')
 
 # Go to working directory
 if install_dir != '':
@@ -70,9 +84,6 @@ env = Environment(loader=file_loader,trim_blocks=True, lstrip_blocks=True)
 ros2_connections = []
 ros2_connection = {}
 ros2_connection['name'] = 'LocalROSConn'
-
-
-
 
 # Initialize
 topic_bridges = []
@@ -160,13 +171,9 @@ template = env.get_template('temp_rosbridge.rbr')
 output = template.render(ros2_connections=ros2_connections, topic_bridges=topic_bridges, service_bridges=service_bridges)
 	
 # Write the generated file
-dest='models/model.rbr'
-with open(dest, 'w') as f:
+#dest='models/model.rbr'
+with open(destination, 'w') as f:
 	f.write(output)
 
 # Give execution permissions to the generated python file
-os.chmod(dest, 509)
-
-
-
-
+os.chmod(destination, 509)

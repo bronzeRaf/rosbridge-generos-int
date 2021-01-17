@@ -1,0 +1,32 @@
+
+// ROS2Connections
+
+
+// TopicBridges
+TopicBridge pub1_bridge  -> {
+	msgType: "/std_msgs/Header";
+	rosConn: LocalROSConn;
+	rosURI: "topic/path1";
+	brokerConn: TODO;
+	brokerURI: "TODO";
+	direction: R2B;
+}
+TopicBridge sub1_bridge  -> {
+	msgType: "/std_msgs/Header";
+	rosConn: LocalROSConn;
+	rosURI: "topic/path1";
+	brokerConn: TODO;
+	brokerURI: "TODO";
+	direction: B2R;
+}
+
+// ServiceBridges
+
+// AMQPConnection
+	// TODO
+	
+// RedisConnection
+	// TODO
+	
+// MQTTConnection
+	// TODO
