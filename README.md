@@ -22,10 +22,10 @@ You can find ROS2 [here](https://index.ros.org/doc/ros2/Installation/Crystal/Lin
 
 
 ## Running the Transformation:
-To run the transformation you will need an XMI ROS2 model file. This model represents a ROS2 system and you can obtain this model from Generos. You can obtain the RosBridge model running:
+To run the transformation you will need an XMI ROS2 model file. This model represents a ROS2 system and you can obtain this model from Generos. Therefor, you can obtain the RosBridge model running:
 
 ```
-sudo bash path/to/run.sh path/to/generos path/to/model.xmi path/to/model.rbr
+sudo bash path/to/run.bash path/to/generos path/to/model.xmi path/to/model.rbr
 ```
 
 Replacing:

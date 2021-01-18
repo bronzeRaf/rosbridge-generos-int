@@ -18,14 +18,6 @@
 # 3. destination
 # 4. rbr info (not set yet)
 
-'''
-from pyecoregen.ecore import EcoreGenerator 
-from weasyprint import HTML
-import subprocess
-import networkx as nx
-import matplotlib.pyplot as plt 
-'''
-
 import os
 import sys
 from pyecore.resources import ResourceSet, URI, global_registry
@@ -84,6 +76,7 @@ env = Environment(loader=file_loader,trim_blocks=True, lstrip_blocks=True)
 ros2_connections = []
 ros2_connection = {}
 ros2_connection['name'] = 'LocalROSConn'
+ros2_connections.append(ros2_connection)
 
 # Initialize
 topic_bridges = []
