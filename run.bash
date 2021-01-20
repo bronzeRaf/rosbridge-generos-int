@@ -19,7 +19,6 @@ install=$(dirname $0)
 cd $install
 
 # Run the Transformation
-# python3 modelGenerator.py ~/Desktop/myrepos/generos ~/Desktop/myrepos/rosbridge-generos-int/models/generos.xmi ~/Desktop/myrepos/rosbridge-generos-int/models/output.rbr
 python3 modelGenerator.py $1 $2 $3 $4 $5 $6 $7 $8 $9
 sudo chmod 777 -R $3
 

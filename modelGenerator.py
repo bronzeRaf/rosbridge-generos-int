@@ -22,7 +22,8 @@
 # 7. broker username
 # 8. broker password
 # 9. broker vhost/db
-
+#
+# Output: the generated rosbridge model in the given path
 
 import os
 import sys
@@ -34,9 +35,6 @@ import pyecore.behavior as behavior
 from pyecore.utils import DynamicEPackage
 from jinja2 import Environment, FileSystemLoader
 sys.path.append(os.path.join(os.path.dirname(__file__),'metamodelLib'))
-
-# ~ import metamodel
-# ~ import metageneros
 
 # Obtain App Install directory
 install_dir = str(os.path.dirname(__file__))
@@ -58,8 +56,10 @@ broker_host = sys.argv[5]
 broker_port = sys.argv[6]
 broker_username = sys.argv[7]
 broker_password = sys.argv[8]
-broker_db = sys.argv[9]
-# ~ broker_info = os.path.relpath(sys.argv[4], install_dir)
+if broker_type == 'redis':
+	broker_db = sys.argv[9]
+elif broker_type == 'amqp':
+	broker_vhost = sys.argv[9]
 
 # Obtain metamodel from Generos
 metamodel_filename = os.path.join(generos_dir, 'metamodelLib/metageneros.ecore')
@@ -93,7 +93,7 @@ ros2_connection = {}
 ros2_connection['name'] = 'LocalROSConn'
 ros2_connections.append(ros2_connection)
 
-# Init
+# Initialize
 redis = {}
 amqp = {}
 
@@ -170,9 +170,9 @@ for package in model_root.hasSoftware.hasPackages:
 				service_bridge['msgType'] = '/'+c.servicemessage.package+'/'+c.servicemessage.name
 			service_bridge['name'] = c.name+'_bridge'
 			service_bridge['rosConn'] = 'LocalROSConn'
-			service_bridge['rosURI'] = c.serviceName
+			service_bridge['rosURI'] = c.servicePath
 			service_bridge['brokerConn'] = 'MyBroker'
-			service_bridge['brokerURI'] = c.topicPath.replace("/",".")
+			service_bridge['brokerURI'] = c.servicePath.replace("/",".")
 			service_bridge['direction'] = 'R2B'
 			# Append it to the rest
 			service_bridges.append(service_bridge)
@@ -187,9 +187,9 @@ for package in model_root.hasSoftware.hasPackages:
 				service_bridge['msgType'] = '/'+s.servicemessage.package+'/'+s.servicemessage.name
 			service_bridge['name'] = s.name+'_bridge'
 			service_bridge['rosConn'] = 'LocalROSConn'
-			service_bridge['rosURI'] = s.serviceName
+			service_bridge['rosURI'] = s.servicePath
 			service_bridge['brokerConn'] = 'MyBroker'
-			service_bridge['brokerURI'] = s.topicPath.replace("/",".")
+			service_bridge['brokerURI'] = s.servicePath.replace("/",".")
 			service_bridge['direction'] = 'B2R'
 			# Append it to the rest
 			service_bridges.append(service_bridge)

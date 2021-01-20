@@ -1,0 +1,60 @@
+
+// ROS2Connections
+ROS2Connection LocalROSConn -> { }
+
+// TopicBridges
+TopicBridge toCpu1_bridge  -> {
+	msgType: "interfaces/Distance";
+	rosConn: LocalROSConn;
+	rosURI: "topic/path/s1";
+	brokerConn: MyBroker;
+	brokerURI: "topic.path.s1";
+	direction: R2B;
+}
+TopicBridge toCpu2_bridge  -> {
+	msgType: "interfaces/Distance";
+	rosConn: LocalROSConn;
+	rosURI: "topic/path/s2";
+	brokerConn: MyBroker;
+	brokerURI: "topic.path.s2";
+	direction: R2B;
+}
+TopicBridge toActuators_bridge  -> {
+	msgType: "/geometry_msgs/Twist";
+	rosConn: LocalROSConn;
+	rosURI: "topic/path/act";
+	brokerConn: MyBroker;
+	brokerURI: "topic.path.act";
+	direction: R2B;
+}
+TopicBridge fromSonar1_bridge  -> {
+	msgType: "interfaces/Distance";
+	rosConn: LocalROSConn;
+	rosURI: "topic/path/s1";
+	brokerConn: MyBroker;
+	brokerURI: "topic.path.s1";
+	direction: B2R;
+}
+TopicBridge fromSonar2_bridge  -> {
+	msgType: "interfaces/Distance";
+	rosConn: LocalROSConn;
+	rosURI: "topic/path/s2";
+	brokerConn: MyBroker;
+	brokerURI: "topic.path.s2";
+	direction: B2R;
+}
+
+
+
+
+// AMQPConnection
+ΑMQPConnection MyBroker −>{
+	host: 'domain.ddns.net';
+	port: 1312;
+	vhost: '/';
+	username: 'arob';
+	password: '1234';
+}
+
+
+

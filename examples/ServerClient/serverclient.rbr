@@ -1,0 +1,36 @@
+
+// ROS2Connections
+ROS2Connection LocalROSConn -> { }
+
+
+
+// ServiceBridges
+ServiceBridge serv1_bridge  -> {
+	msgType: "/std_srvs/SetBool";
+	rosConn: LocalROSConn;
+	rosURI: "service/path1";
+	brokerConn: MyBroker;
+	brokerURI: "service.path1";
+	direction: B2R;
+}
+ServiceBridge cli1_bridge  -> {
+	msgType: "/std_srvs/SetBool";
+	rosConn: LocalROSConn;
+	rosURI: "service/path1";
+	brokerConn: MyBroker;
+	brokerURI: "service.path1";
+	direction: R2B;
+}
+
+
+
+
+// RedisConnection
+RedisConnection MyBroker −>{
+	host: domain.ddns.net';
+	port: 22;
+	username: 'myrobot';
+	password: 'myr0b0t1!';
+	db: 902;
+}
+

@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<metageneros:ROSSystem xmlns:xmi="http://www.omg.org/XMI" xmlns:metageneros="http://www.example.org/metageneros" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="My_dsl_ROS_system" xmi:version="2.0">
+  <hasTopology xsi:type="metageneros:Topology">
+    <hasPlatforms xsi:type="metageneros:Platform" name="workspace_platform"/>
+  </hasTopology>
+  <hasSoftware xsi:type="metageneros:Software">
+    <hasPackages xsi:type="metageneros:CustomPackage" packagePath="" name="interfaces">
+      <hasTopicMessages xsi:type="metageneros:CustomMessage" name="Distance" description="This is a Message to provide a timestamped range value from Sonar sensors">
+        <hasObjectProperties xsi:type="metageneros:ObjectProperty" name="h" description="Timestamp Header of the distance" default="">
+          <datatype xsi:type="metageneros:ROSData" package="std_msgs" type="Header"/>
+        </hasObjectProperties>
+        <hasObjectProperties xsi:type="metageneros:ObjectProperty" name="range" description="range from obstacle in meters" default="">
+          <datatype xsi:type="metageneros:Float"/>
+        </hasObjectProperties>
+      </hasTopicMessages>
+    </hasPackages>
+    <hasPackages xsi:type="metageneros:RosPackage" packagePath="" builtin="true" name="geometry_msgs">
+      <hasTopicMessages xsi:type="metageneros:RosMessage" package="geometry_msgs" name="Twist"/>
+    </hasPackages>
+    <hasPackages xsi:type="metageneros:CustomPackage" license="Apache License 2.0" email="rnm1816@gmail.com" description="This is a package that implements an obstacle avoidance algorithm for a robot of one CPU and two SONARS." packagePath="path/to/pack1" maintainer="bronzeRaf" name="obstacle_avoidance">
+      <hasNodes xsi:type="metageneros:Node" namespace="" name="sonar1">
+        <hasPublishers xsi:type="metageneros:Publisher" name="toCpu1" topicPath="topic/path/s1" pmsg="//@hasSoftware/@hasPackages.0/@hasTopicMessages.0" qosprofile="//@hasSoftware/@hasQosProfiles.0"/>
+      </hasNodes>
+      <hasNodes xsi:type="metageneros:Node" namespace="" name="sonar2">
+        <hasPublishers xsi:type="metageneros:Publisher" name="toCpu2" topicPath="topic/path/s2" pmsg="//@hasSoftware/@hasPackages.0/@hasTopicMessages.0" qosprofile="//@hasSoftware/@hasQosProfiles.0"/>
+      </hasNodes>
+      <hasNodes xsi:type="metageneros:Node" namespace="" name="cpu">
+        <hasSubscribers xsi:type="metageneros:Subscriber" topicPath="topic/path/s1" smsg="//@hasSoftware/@hasPackages.0/@hasTopicMessages.0" qosprofile="//@hasSoftware/@hasQosProfiles.0" name="fromSonar1"/>
+        <hasSubscribers xsi:type="metageneros:Subscriber" topicPath="topic/path/s2" smsg="//@hasSoftware/@hasPackages.0/@hasTopicMessages.0" qosprofile="//@hasSoftware/@hasQosProfiles.0" name="fromSonar2"/>
+        <hasPublishers xsi:type="metageneros:Publisher" pmsg="//@hasSoftware/@hasPackages.1/@hasTopicMessages.0" name="toActuators" topicPath="topic/path/act"/>
+      </hasNodes>
+      <hasDependencies xsi:type="metageneros:PackageDependency" package="//@hasSoftware/@hasPackages.0"/>
+      <hasDependencies xsi:type="metageneros:PackageDependency" package="//@hasSoftware/@hasPackages.1"/>
+      <hasDocumentation xsi:type="metageneros:Documentation"/>
+    </hasPackages>
+    <hasQosProfiles xsi:type="metageneros:CustomQosProfile" history="KEEP_LAST" depth="15"/>
+  </hasSoftware>
+  <hasSystemGraph xsi:type="metageneros:SystemGraph">
+    <packagegraph xsi:type="metageneros:PackageGraph" package="//@hasSoftware/@hasPackages.0 //@hasSoftware/@hasPackages.2"/>
+    <graph xsi:type="metageneros:Graph" nodes="//@hasSoftware/@hasPackages.2/@hasNodes.0 //@hasSoftware/@hasPackages.2/@hasNodes.1 //@hasSoftware/@hasPackages.2/@hasNodes.2">
+      <hasTopics xsi:type="metageneros:Topic" publisher="//@hasSoftware/@hasPackages.2/@hasNodes.0/@hasPublishers.0" topicPath="topic/path/s1" subscriber="//@hasSoftware/@hasPackages.2/@hasNodes.2/@hasSubscribers.0"/>
+      <hasTopics xsi:type="metageneros:Topic" publisher="//@hasSoftware/@hasPackages.2/@hasNodes.1/@hasPublishers.0" topicPath="topic/path/s2" subscriber="//@hasSoftware/@hasPackages.2/@hasNodes.2/@hasSubscribers.1"/>
+      <hasTopics xsi:type="metageneros:Topic" publisher="//@hasSoftware/@hasPackages.2/@hasNodes.2/@hasPublishers.0" topicPath="topic/path/act"/>
+    </graph>
+  </hasSystemGraph>
+</metageneros:ROSSystem>

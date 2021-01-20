@@ -43,11 +43,11 @@ ServiceBridge {{s.name}}  -> {
 {% if amqp is defined and amqp|length %}
 // AMQPConnection
 ΑMQPConnection {{amqp.name}} −>{
-	host: ’{{amqp.host}}’;
+	host: '{{amqp.host}}';
 	port: {{amqp.port}};
-	vhost: {{amqp.vhost}};
-	username: {{amqp.username}};
-	password: {{amqp.password}};
+	vhost: '{{amqp.vhost}}';
+	username: '{{amqp.username}}';
+	password: '{{amqp.password}}';
 }
 {%endif%}
 
@@ -55,11 +55,11 @@ ServiceBridge {{s.name}}  -> {
 {% if redis is defined and redis|length %}
 // RedisConnection
 RedisConnection {{redis.name}} −>{
-	host: ’{{redis.host}}’;
+	host: {{redis.host}}';
 	port: {{redis.port}};
-	username: {{redis.username}};
-	password: {{redis.password}};
-	vhost: {{redis.db}};
+	username: '{{redis.username}}';
+	password: '{{redis.password}}';
+	db: {{redis.db}};
 }
 {%endif%}
 
