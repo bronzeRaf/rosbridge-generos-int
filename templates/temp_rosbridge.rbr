@@ -10,7 +10,7 @@
 ROS2Connection {{r.name}} -> { }
 {%endfor%}
 
-
+{% if topic_bridges is defined and topic_bridges|length %}
 // TopicBridges
 {% for t in topic_bridges %}
 TopicBridge {{t.name}}  -> {
@@ -22,7 +22,10 @@ TopicBridge {{t.name}}  -> {
 	direction: {{t.direction}};
 }
 {%endfor%}
+{%endif%}
 
+
+{% if service_bridges is defined and service_bridges|length %}
 // ServiceBridges
 {% for s in service_bridges %}
 ServiceBridge {{s.name}}  -> {
@@ -34,12 +37,30 @@ ServiceBridge {{s.name}}  -> {
 	direction: {{s.direction}};
 }
 {%endfor%}
+{%endif%}
 
+
+{% if amqp is defined and amqp|length %}
 // AMQPConnection
-	// TODO
-	
+ΑMQPConnection {{amqp.name}} −>{
+	host: '{{amqp.host}}';
+	port: {{amqp.port}};
+	vhost: '{{amqp.vhost}}';
+	username: '{{amqp.username}}';
+	password: '{{amqp.password}}';
+}
+{%endif%}
+
+
+{% if redis is defined and redis|length %}
 // RedisConnection
-	// TODO
-	
-// MQTTConnection
-	// TODO
+RedisConnection {{redis.name}} −>{
+	host: {{redis.host}}';
+	port: {{redis.port}};
+	username: '{{redis.username}}';
+	password: '{{redis.password}}';
+	db: {{redis.db}};
+}
+{%endif%}
+
+

@@ -1,32 +1,36 @@
 
 // ROS2Connections
-
+ROS2Connection LocalROSConn -> { }
 
 // TopicBridges
 TopicBridge pub1_bridge  -> {
 	msgType: "/std_msgs/Header";
 	rosConn: LocalROSConn;
 	rosURI: "topic/path1";
-	brokerConn: TODO;
-	brokerURI: "TODO";
+	brokerConn: MyBroker;
+	brokerURI: "topic.path1";
 	direction: R2B;
 }
 TopicBridge sub1_bridge  -> {
 	msgType: "/std_msgs/Header";
 	rosConn: LocalROSConn;
 	rosURI: "topic/path1";
-	brokerConn: TODO;
-	brokerURI: "TODO";
+	brokerConn: MyBroker;
+	brokerURI: "topic.path1";
 	direction: B2R;
 }
 
-// ServiceBridges
 
-// AMQPConnection
-	// TODO
-	
+
+
+
+
 // RedisConnection
-	// TODO
-	
-// MQTTConnection
-	// TODO
+RedisConnection MyBroker −>{
+	host: domain.ddns.net';
+	port: 5582;
+	username: 'robot';
+	password: 'r0b0t!';
+	db: 303;
+}
+

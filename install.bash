@@ -22,4 +22,6 @@ pip3 install -U Jinja2
 # Download and extract the M2M transformation
 sudo wget https://github.com/bronzeRaf/rosbridge-generos-int/archive/main.zip
 unzip main.zip
-sudo chmod 777 -R rosbridge-generos-int
+sudo chmod 777 -R rosbridge-generos-int-main
+
+echo "NOTICE! In order to use the transformation, install GeneROS from here: https://github.com/bronzeRaf/generos"
