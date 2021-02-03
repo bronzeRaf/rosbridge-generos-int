@@ -1,6 +1,6 @@
 # rosbridge-generos-int
 
-A model to model transformation from a GeneROS model to a RosBridge one.
+A model to model transformation from a GeneROS model to a RosBridge model. 
 
 ## Installing The Transformation:
 
