@@ -54,8 +54,8 @@ ServiceBridge {{s.name}}  -> {
 
 {% if redis is defined and redis|length %}
 // RedisConnection
-RedisConnection {{redis.name}} −>{
-	host: {{redis.host}}';
+RedisConnection {{redis.name}} -> {
+	host: '{{redis.host}}';
 	port: {{redis.port}};
 	username: '{{redis.username}}';
 	password: '{{redis.password}}';

@@ -3,58 +3,66 @@
 ROS2Connection LocalROSConn -> { }
 
 // TopicBridges
-TopicBridge toCpu1_bridge  -> {
-	msgType: "interfaces/Distance";
+TopicBridge left_sonar_publisher_bridge  -> {
+	msgType: "/sensor_msgs/Range";
 	rosConn: LocalROSConn;
-	rosURI: "topic/path/s1";
+	rosURI: "sensors/range/left";
 	brokerConn: MyBroker;
-	brokerURI: "topic.path.s1";
+	brokerURI: "sensors.range.left";
 	direction: R2B;
 }
-TopicBridge toCpu2_bridge  -> {
-	msgType: "interfaces/Distance";
+TopicBridge right_sonar_publisher_bridge  -> {
+	msgType: "/sensor_msgs/Range";
 	rosConn: LocalROSConn;
-	rosURI: "topic/path/s2";
+	rosURI: "sensors/range/right";
 	brokerConn: MyBroker;
-	brokerURI: "topic.path.s2";
+	brokerURI: "sensors.range.right";
 	direction: R2B;
 }
-TopicBridge toActuators_bridge  -> {
-	msgType: "/geometry_msgs/Twist";
+TopicBridge motion_subscriber_bridge  -> {
+	msgType: "interfaces/Velocities";
 	rosConn: LocalROSConn;
-	rosURI: "topic/path/act";
+	rosURI: "actuators/velocities";
 	brokerConn: MyBroker;
-	brokerURI: "topic.path.act";
-	direction: R2B;
-}
-TopicBridge fromSonar1_bridge  -> {
-	msgType: "interfaces/Distance";
-	rosConn: LocalROSConn;
-	rosURI: "topic/path/s1";
-	brokerConn: MyBroker;
-	brokerURI: "topic.path.s1";
+	brokerURI: "actuators.velocities";
 	direction: B2R;
 }
-TopicBridge fromSonar2_bridge  -> {
-	msgType: "interfaces/Distance";
+TopicBridge motion_publisher_bridge  -> {
+	msgType: "interfaces/Velocities";
 	rosConn: LocalROSConn;
-	rosURI: "topic/path/s2";
+	rosURI: "actuators/velocities";
 	brokerConn: MyBroker;
-	brokerURI: "topic.path.s2";
+	brokerURI: "actuators.velocities";
+	direction: R2B;
+}
+TopicBridge left_sonar_subscriber_bridge  -> {
+	msgType: "/sensor_msgs/Range";
+	rosConn: LocalROSConn;
+	rosURI: "sensors/range/left";
+	brokerConn: MyBroker;
+	brokerURI: "sensors.range.left";
+	direction: B2R;
+}
+TopicBridge right_sonar_subscriber_bridge  -> {
+	msgType: "/sensor_msgs/Range";
+	rosConn: LocalROSConn;
+	rosURI: "sensors/range/right";
+	brokerConn: MyBroker;
+	brokerURI: "sensors.range.right";
 	direction: B2R;
 }
 
 
 
 
-// AMQPConnection
-ΑMQPConnection MyBroker −>{
+
+
+// RedisConnection
+RedisConnection MyBroker -> {
 	host: 'domain.ddns.net';
-	port: 1312;
-	vhost: '/';
-	username: 'arob';
-	password: '1234';
+	port: 5582;
+	username: 'robot';
+	password: 'r0b0t!';
+	db: 303;
 }
-
-
 
